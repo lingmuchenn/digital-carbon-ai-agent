@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字脱碳管家</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="step1_figma.css">
+    <link rel="stylesheet" href="step2_figma.css">
+    <link rel="stylesheet" href="step3_figma.css">
+    <!-- step4_figma.css 通过 <style> 标签导入以提高优先级 -->
+</head>
+<body>
+<style>
+    /* Figma Frame 78 精确还原 - 内联以确保最高优先级 */
+    @import url('step4_figma.css');
+</style>
+    <div id="app-container">
+        <!-- Expanded Interaction Box -->
+        <div id="interaction-box" class="glass-effect hidden">
+            
+            <!-- STEP 1: 悬浮球展开层（无额外容器，直接挂在 interaction-box 下） -->
+            <div id="step1-layer">
+                <div class="step-1-background"></div>
+                <div class="step-1-icons-container">
+                    <!-- 中心大图标 -->
+                    <div class="step-1-center-icon">
+                        <img src="image/logo.svg" alt="中心图标" class="center-icon-image">
+                    </div>
+
+                    <!-- 重复文件 -->
+                    <div class="step-1-item item-duplicate">
+                        <button class="step-1-icon-btn" data-icon="duplicate" onclick="selectModeAndGoStep2('duplicate')">
+                            <img src="image/重复文件.svg" alt="重复文件" class="icon-image">
+                        </button>
+                        <div class="step-1-tooltip">重复文件</div>
+                    </div>
+
+                    <!-- 过程文件 -->
+                    <div class="step-1-item item-process">
+                        <button class="step-1-icon-btn" data-icon="process" onclick="selectModeAndGoStep2('process')">
+                            <img src="image/过程文件.svg" alt="过程文件" class="icon-image">
+                        </button>
+                        <div class="step-1-tooltip">过程文件</div>
+                    </div>
+
+                    <!-- 历史文件 -->
+                    <div class="step-1-item item-history">
+                        <button class="step-1-icon-btn" data-icon="history" onclick="selectModeAndGoStep2('history')">
+                            <img src="image/历史文件.svg" alt="历史文件" class="icon-image">
+                        </button>
+                        <div class="step-1-tooltip">历史文件</div>
+                    </div>
+
+                    <!-- 相似文件 -->
+                    <div class="step-1-item item-similar">
+                        <button class="step-1-icon-btn" data-icon="similar" onclick="selectModeAndGoStep2('similar')">
+                            <img src="image/相似文件.svg" alt="相似文件" class="icon-image">
+                        </button>
+                        <div class="step-1-tooltip">相似文件</div>
+                    </div>
+
+                    <!-- 返回 -->
+                    <div class="step-1-item item-back">
+                        <button class="step-1-icon-btn" data-icon="back" onclick="closeStep1()">
+                            <img src="image/返回.svg" alt="返回" class="icon-image">
+                        </button>
+                        <div class="step-1-tooltip">返回</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: 选择文件夹（新版 Figma 设计） -->
+            <div id="step-2" class="step-view glass-effect hidden">
+                <h2 class="page-title">选择文件夹</h2>
+                
+                <!-- 拖拽/输入区域 -->
+                <div class="folder-input-area" id="folder-input-area">
+                    <div class="drag-icon-wrapper"></div>
+                    <div class="input-instructions">
+                        <p class="instruction-main">请输入文件夹完整路径或拖入文件夹</p>
+                        <p class="instruction-hint">按住回车确认</p>
+                    </div>
+                    <div class="folder-path-input-wrapper">
+                        <input type="text" 
+                               class="folder-path-input" 
+                               id="folder-path-input" 
+                               placeholder="">
+                    </div>
+                </div>
+
+                <!-- 已导入文件夹 -->
+                <div class="imported-folders-section">
+                    <h3 class="section-title">已导入文件夹</h3>
+                    <div class="folders-list-container">
+                        <div class="folders-list-wrapper">
+                            <div class="folders-list" id="folders-list">
+                                <!-- 文件夹项将通过 JS 动态添加 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="step2-actions">
+                    <button class="btn-step2-confirm" id="btn-step2-confirm" onclick="confirmFolderSelection()">确认</button>
+                    <button class="btn-step2-cancel" onclick="cancelFolderSelection()">取消</button>
+                </div>
+            </div>
+
+
+            <!-- STEP 3: 实时日志滚动展示 -->
+            <div id="step-3" class="step-view glass-effect hidden">
+                <!-- 进度条 -->
+                <div class="progress-wrapper glass-effect" id="progress-wrapper" style="display: none;">
+                    <div class="progress-info">
+                        <span class="progress-label">分析进度</span>
+                        <span class="progress-time" id="progress-time">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p class="progress-hint" id="progress-hint">正在处理中...</p>
+                </div>
+                
+                <div class="log-container" id="log-container">
+                    <!-- 后端日志会实时追加到这里，每条日志是独立的卡片 -->
+                </div>
+            </div>
+
+            <!-- STEP 4: Figma Redesign Result View -->
+            <div id="step-4" class="step-view glass-effect hidden">
+                <!-- Frame 99: Level Header -->
+                <div class="level-header">
+                    <span class="level-emoji">🤯</span>
+                    <span class="level-text">E级</span>
+                    <span class="level-desc">极高碳负担</span>
+                </div>
+                
+                <!-- Frame 64: Main Card -->
+                <div class="result-card" id="result-card">
+                    <!-- Frame 49: Title Section -->
+                    <div class="card-title-section">
+                        <h2 class="card-main-title" id="card-main-title">重复文件</h2>
+                        <div class="card-subtitle">
+                            <span class="card-meta-item total-size" id="total-selected-size">640MB</span>
+                            <span class="card-meta-item selection-count" id="selection-count">2/2 个文件已选</span>
+                        </div>
+                    </div>
+
+                    <!-- Frame 55: File Preview Section -->
+                    <div class="preview-section">
+                        <div class="section-header">
+                            <span class="section-label">文件预览</span>
+                            <div class="view-details" onclick="toggleDetails()">
+                                <span>查看详情</span>
+                                <img src="image/arrow_right.svg" class="arrow-icon" alt="arrow">
+                            </div>
+                        </div>
+                        <div class="preview-container" id="preview-container">
+                            <!-- Frame 41: File list row -->
+                            <div class="file-list-row" id="file-list-row">
+                                <!-- File cards injected here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frame 56: Cleanup Suggestion Section -->
+                    <div class="suggestion-section">
+                        <div class="section-header">
+                            <span class="section-label">清理建议</span>
+                            <div class="view-details" onclick="toggleDetails()">
+                                <span>查看详情</span>
+                                <img src="/image/arrow_right.svg" class="arrow-icon" alt="arrow" style="display: inline;">
+                            </div>
+                        </div>
+                        <div class="suggestion-box">
+                            <div class="suggestion-item">
+                                <span class="suggestion-icon">🔵</span>
+                                <div class="suggestion-content">
+                                    <span class="suggestion-title">判断依据</span>
+                                    <p class="suggestion-text" id="suggestion-reason">这些文件内容相同，且在一段时间内未被使用</p>
+                                </div>
+                            </div>
+                            <div class="suggestion-item">
+                                <span class="suggestion-icon">🟢</span>
+                                <div class="suggestion-content">
+                                    <span class="suggestion-title">数字脱碳贡献</span>
+                                    <div class="decarbon-info">
+                                        <span class="suggestion-text">释放的数字能力可支持约</span>
+                                        <span class="highlight-tag" id="decarbon-contribution">20–30分钟高清视频播放</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frame 92: Action Buttons -->
+                    <div class="card-actions-new">
+                        <button class="btn-cleanup" id="btn-cleanup" onclick="handleCardConfirm()">清理这组文件</button>
+                        <button class="btn-ignore" id="btn-ignore" onclick="handleCardSkip()">忽略</button>
+                    </div>
+                </div>
+
+                <button class="back-home-btn glass-effect hidden" id="back-home-btn" onclick="goBackHome()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <span>返回首页</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Floating Ball (Logo) -->
+        <div id="floating-ball" class="glass-effect" onclick="toggleExpand(event)">
+            <img src="image/logo.svg" alt="Logo" class="logo">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
