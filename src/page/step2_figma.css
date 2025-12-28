@@ -1,0 +1,460 @@
+/* ========================================
+   Figma Step 2 精确还原 - 选择文件夹界面
+   设计稿: https://www.figma.com/design/UVxtKVTUMNgn0XGIfMELGw?node-id=1487-10678
+   所有尺寸严格使用 px 单位
+   ======================================== */
+
+/* Frame 2610436 - 根容器 */
+.step-view#step-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    width: 340px;
+}
+
+/* 标题 */
+#step-2 .page-title {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22.4px;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+/* 拖拽/输入区域 */
+.folder-input-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    gap: 8px;
+    padding: 20px 16px;
+    height: 132px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 0.6px solid rgba(203, 203, 203, 0.6);
+    cursor: pointer;
+    transition: background 0.2s;
+
+    --step2-dragover-icon-url: none;
+}
+
+.folder-input-area.drag-over {
+    /* Figma: Frame 2610443 (node 1487:10709) */
+    background: rgba(255, 255, 255, 0.3);
+    border: 0.6px dashed #CBCBCB;
+    gap: 10px;
+}
+
+/* 拖拽态：按 Figma 规格放大图标（100×75）并使用占位图片 */
+.folder-input-area.drag-over .drag-icon-wrapper {
+    width: 100px;
+    height: 75px;
+    aspect-ratio: 100/75;
+    background-image: url('image/drag_folder.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* 拖拽态：隐藏原有说明/输入框，用伪元素展示 Figma 文案 */
+/* 拖拽态：隐藏区域内原有所有元素（包括输入框），仅保留拖拽态图标 + ::after 文案 */
+.folder-input-area.drag-over > * {
+    display: none;
+}
+
+/* 拖拽态：仅保留图标容器 */
+.folder-input-area.drag-over .drag-icon-wrapper {
+    display: inline-block !important;
+}
+
+.folder-input-area.drag-over::after {
+    content: '在此处拖放待清理文件夹';
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16.8px;
+    color: #4C4C4C;
+    text-align: center;
+}
+
+
+.drag-icon-wrapper {
+    content: '';
+    display: inline-block;
+    width: 42px;
+    height: 29px;
+    flex-shrink: 0;
+    aspect-ratio: 42/29;
+    background: url('image/choose_folder.svg') center center no-repeat;
+    background-size: contain;
+}
+
+/* 说明文字 */
+.input-instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.instruction-main {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16.8px;
+    color: #4C4C4C;
+    text-align: center;
+}
+
+.instruction-hint {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    color: #808080;
+    text-align: center;
+}
+
+/* 输入框 */
+.folder-path-input-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    height: 22px;
+    gap: 10px;
+    padding: 4px 53px;
+    border: 0.6px solid rgba(203, 203, 203, 0.6);
+    border-radius: 4px;
+}
+
+.folder-path-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: normal;
+    color: #808080;
+    outline: none;
+    text-align: center;
+}
+
+.folder-path-input::placeholder {
+    color: #808080;
+}
+
+/* 已导入文件夹区域 */
+.imported-folders-section {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    gap: 10px;
+}
+
+.section-title {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16.8px;
+    color: #4C4C4C;
+}
+
+/* 文件夹列表容器 */
+.folders-list-container {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    padding: 10px 0px 10px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 0.6px solid rgba(203, 203, 203, 0.6);
+    max-height: 158px;
+    overflow-y: auto;
+}
+
+/* 空状态容器 */
+.folders-list-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    gap: 5px;
+    padding: 20px 0px;
+}
+
+.empty-icon-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: -70px;
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+
+.empty-folder-icon {
+    width: 32px;
+    height: 32px;
+    /* opacity: 0.2; */
+}
+
+.empty-dash-box {
+    position: absolute;
+    left: 1px;
+    top: 4.23px;
+    width: 30px;
+    height: 23.77px;
+    border: 0.6px dashed #C6C6C6;
+    border-radius: 2px;
+}
+
+.empty-text {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* 文件夹项容器 */
+.folders-list-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
+}
+
+.folders-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px 0px 0px;
+    flex: 1;
+    /* gap: 8px; */
+}
+
+/* 单个文件夹项 */
+.folder-item {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    gap: 6px;
+    padding: 8px 6px;
+    height: 45px;
+    border-radius: 8px;
+    background: transparent;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.folder-item:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.folder-item:hover .delete-icon {
+    display: block;
+}
+
+.folder-item-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    gap: 8px;
+}
+
+/* 复选框 - 隐藏不使用 */
+.folder-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.folder-checkbox {
+    width: 10px;
+    height: 10px;
+    border-radius: 3.44px;
+    border: 0.6px solid rgba(203, 203, 203, 0.6);
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.folder-checkbox.checked {
+    background: #0D6FFF;
+    border-color: #0D6FFF;
+}
+
+.folder-checkbox.checked::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 5.82px;
+    height: 5.58px;
+    background: url('image/checkmark.svg') no-repeat center;
+    background-size: contain;
+}
+
+/* 删除图标 */
+.delete-icon {
+    display: none;
+    width: 16px;
+    height: 16px;
+    background: url('image/trash.svg') no-repeat center;
+    background-size: contain;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+}
+
+.delete-icon:hover {
+    opacity: 0.7;
+}
+
+
+
+/* 文件夹信息 */
+.folder-info-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.folder-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0px 4px;
+}
+
+.folder-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.folder-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+}
+
+.folder-name {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16.8px;
+    color: rgba(0, 0, 0, 0.85);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.folder-size-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.folder-size {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    color: #808080;
+}
+
+/* 滚动条样式 */
+.folders-list-container::-webkit-scrollbar {
+    width: 3px;
+}
+
+.folders-list-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.folders-list-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 542.86px;
+}
+
+/* 按钮区域 */
+.step2-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.btn-step2-confirm,
+.btn-step2-cancel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 10px;
+    width: 145px;
+    height: 30px;
+    border-radius: 103.7px;
+    border: 0.52px solid rgba(203, 203, 203, 0.6);
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16.8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-step2-confirm {
+    background: #ADADAD;
+    color: #FFFFFF;
+}
+
+.btn-step2-confirm:hover:not(:disabled) {
+    background: #999999;
+}
+
+.btn-step2-confirm:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-step2-cancel {
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: 500;
+    color: #808080;
+}
+
+.btn-step2-cancel:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+/* 容器扩展以适应 step-2 */
+#interaction-box:has(#step-2:not(.hidden)) {
+    width: 340px;
+    background: transparent;
+    padding: 0;
+    max-height: 95vh;
+    display: flex;
+    justify-content: center;
+}
+

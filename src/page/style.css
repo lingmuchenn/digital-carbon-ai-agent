@@ -1,0 +1,355 @@
+/* Base Styles */
+@font-face {
+    font-family: 'PingFang SC';
+    src: url('PingFang.ttc');
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'PingFang SC', sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+
+#app-container {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: row; /* Box 在左，Logo 在右 */
+    align-items: center;
+    justify-content: flex-end; /* 确保内容向左延伸，Logo 靠右 */
+    z-index: 1000;
+    gap: 20px;
+}
+
+/* 统一玻璃效果样式 */
+.glass-effect {
+    /* 玻璃本体半透明 */
+    background: rgba(255, 255, 255, 0.14);
+
+    /* 背景模糊：等价 Figma 的 Background Blur */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    /* 玻璃边缘高光描边 */
+    border: 1px solid rgba(255, 255, 255, 0.22);
+
+    /* 真实感：两层阴影 */
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+    border-radius: 18px;
+}
+
+/* Floating Ball */
+#floating-ball {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#floating-ball:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+#floating-ball .logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Interaction Box */
+#interaction-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    width: auto; /* 宽度由子项决定 */
+    max-height: 95vh;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    overflow: visible; /* 允许功能球超出 */
+    padding: 0; 
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    position: relative; /* 子项定位基准 */
+}
+
+.step1-open#interaction-box {
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: visible;
+    box-shadow: none;
+    background: transparent;
+}
+
+
+#interaction-box.hidden {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    pointer-events: none;
+    display: none;
+}
+
+.step-view {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step-view.hidden {
+    display: none !important;
+}
+
+/* --- STEP 1 Styles (RESTORED) --- */
+.bubble {
+    padding: 15px 20px;
+    border-radius: 24px;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+    width: 100%;
+}
+
+.greeting-bubble {
+    border-bottom-right-radius: 4px;
+    width: fit-content;
+    max-width: 80%;
+    align-self: flex-end;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 15px;
+}
+
+.input-bubble {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.input-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* input[type="text"] {
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 15px;
+    color: #4C4C4C;
+    padding: 0;
+    margin-bottom: 10px;
+} */
+
+.action-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.tag-btn {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 20px;
+    border: none;
+    font-size: 14px;
+    color: #4C4C4C;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(247, 247, 247, 1);
+}
+
+.file-card-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.45);
+    margin-top: 4px;
+}
+
+.file-size {
+    font-weight: 600;
+}
+
+/* Details Expansion */
+.details-expansion {
+    width: 380px;
+    margin-top: 10px;
+    padding: 15px;
+    overflow: hidden;
+    transform-origin: top;
+}
+
+.details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.details-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 5px;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.details-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.details-item .label {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.details-item .value {
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 500;
+}
+
+.details-item .value.highlight {
+    color: #64C998;
+    font-weight: 700;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: scaleY(0);
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        transform: scaleY(1);
+        max-height: 500px;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 1;
+        transform: scaleY(1);
+        max-height: 500px;
+    }
+    to {
+        opacity: 0;
+        transform: scaleY(0);
+        max-height: 0;
+    }
+}
+
+/* Image Thumb in Card */
+.image-thumb {
+    object-fit: cover;
+    border-radius: 4px;
+    background: #eee;
+}
+
+.file-card-icon-wrapper img.image-thumb {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- STEP 2 & 3 (RESTORED) --- */
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.back-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+}
+
+.drop-zone {
+    width: 100%;
+    min-height: 200px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 30px;
+    border: 2px dashed rgba(0, 0, 0, 0.1);
+}
+
+.log-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.log-line {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    color: #4C4C4C;
+}
+
+/* ========== Step-4 相关样式已完全移至 step4_figma.css ==========
+   不在此文件中定义任何 step-4 相关样式 */
+
+.hidden {
+    display: none !important;
+}

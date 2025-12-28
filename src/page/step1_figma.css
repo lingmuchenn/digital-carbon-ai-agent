@@ -1,0 +1,181 @@
+/* ========================================
+   Figma Step 1 精确还原 - 功能选择界面
+   设计稿: https://www.figma.com/design/UVxtKVTUMNgn0XGIfMELGw
+   以悬浮球为中心，向左边半圈展开的动态布局
+   ======================================== */
+
+/* 悬浮球展开层：直接挂在 interaction-box 下，不再强制 fixed 全屏 */
+#step1-layer {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 1002;
+}
+
+/* 图标和标签容器，中心点固定在悬浮球中心 (悬浮球在 interaction-box 右侧) */
+.step-1-icons-container {
+    position: absolute;
+    right: 30px; /* 60px 悬浮球的一半 */
+    top: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* 圆形背景（透明，仅供定位参考，半径 143.5px） */
+.step-1-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    width: 287px;
+    height: 287px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    background: transparent;
+}
+
+/* 图标按钮通用样式 */
+.step-1-icon-btn {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.16);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 0;
+    z-index: 2;
+}
+
+.step-1-icon-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0px 0px 50px 0px rgba(255, 255, 255, 1.2);
+}
+
+.step-1-icon-btn:active {
+    transform: scale(0.95);
+}
+
+.step-1-icon-btn .icon-image {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+/* 单个功能容器，中心点在 container 中心 */
+.step-1-item {
+    position: absolute;
+    left: 0; 
+    top: 0;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px; /* 按钮半宽 */
+    margin-top: -25px;  /* 按钮半高 */
+    z-index: 2;
+    pointer-events: auto;
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+
+/* Tooltip 仅 hover 显示 */
+.step-1-tooltip {
+    position: absolute;
+    padding: 8px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: #4C4C4C;
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.14);
+    opacity: 0;
+    transform: translateY(-50%) translateX(10px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: none;
+    z-index: 3;
+    /* 固定在球左侧 */
+    right: 60px;
+    top: 50%;
+}
+
+.step-1-item:hover .step-1-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* 中心大图标 (Logo) - 覆盖在原 Logo 之上 */
+.step-1-center-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.step-1-center-icon .center-icon-image {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* 功能球沿 287px 圆左半弧均匀分布（半径 143.5px） */
+/* 角度：90 (顶), 135, 180 (左), 225, 270 (底) */
+
+#step1-layer:not(.hidden) .item-duplicate { 
+    opacity: 1; 
+    transform: translate(0px, -143.5px) scale(1); 
+    transition-delay: 0.05s;
+}
+
+#step1-layer:not(.hidden) .item-process { 
+    opacity: 1; 
+    transform: translate(-101.5px, -101.5px) scale(1); 
+    transition-delay: 0.1s;
+}
+
+#step1-layer:not(.hidden) .item-history { 
+    opacity: 1; 
+    transform: translate(-143.5px, 0px) scale(1); 
+    transition-delay: 0.15s;
+}
+
+#step1-layer:not(.hidden) .item-similar { 
+    opacity: 1; 
+    transform: translate(-101.5px, 101.5px) scale(1); 
+    transition-delay: 0.2s;
+}
+
+#step1-layer:not(.hidden) .item-back { 
+    opacity: 1; 
+    transform: translate(0px, 143.5px) scale(1); 
+    transition-delay: 0.25s;
+}

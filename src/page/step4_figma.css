@@ -1,0 +1,615 @@
+/* ========================================
+   Figma Frame 78 精确还原 - Step 4 完整样式
+   设计稿: https://www.figma.com/design/UVxtKVTUMNgn0XGIfMELGw
+   所有尺寸严格使用 px 单位
+   ======================================== */
+
+/* Frame 78 - 根容器 */
+.step-view#step-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    width: 380px;
+    height: auto;
+    transition: background 0.3s ease;
+}
+
+/* Level Colors Configuration (配合玻璃效果，带透明度) */
+/* Level E (极高) */
+.step-view#step-4.level-e { background: rgba(255, 228, 228, 0.8) !important; }
+.level-e .level-text, .level-e .level-desc, .level-e .level-emoji { color: #5F0606; }
+.level-e .suggestion-box { background: rgba(255, 238, 238, 0.2); border-color: rgba(255, 198, 198, 0.6); }
+.level-e .highlight-tag { background: #FFD1D1; }
+.level-e .btn-cleanup { 
+    background: linear-gradient(90deg, #FF838C 0%, #FFB780 100%); 
+    border-color: rgba(255, 198, 198, 0.6); 
+}
+.level-e .btn-ignore { border-color: rgba(255, 198, 198, 0.6); }
+
+/* Level D (高) */
+.step-view#step-4.level-d { background: rgba(255, 231, 213, 0.8) !important; }
+.level-d .level-text, .level-d .level-desc, .level-d .level-emoji { color: #5F2B06; }
+.level-d .suggestion-box { background: rgba(255, 245, 238, 0.2); border-color: rgba(255, 215, 187, 0.6); }
+.level-d .highlight-tag { background: rgba(255, 204, 168, 0.5); }
+.level-d .btn-cleanup { 
+    background: linear-gradient(90deg, #FFB780 0%, #F7D83C 100%); 
+    border-color: rgba(255, 214, 184, 0.6); 
+}
+.level-d .btn-ignore { border-color: rgba(255, 214, 184, 0.6); }
+
+/* Level C (中) */
+.step-view#step-4.level-c { background: rgba(254, 244, 191, 0.8) !important; }
+.level-c .level-text, .level-c .level-desc, .level-c .level-emoji { color: #5F5006; }
+.level-c .suggestion-box { background: rgba(255, 252, 238, 0.2); border-color: rgba(255, 230, 108, 0.6); }
+.level-c .highlight-tag { background: rgba(255, 233, 126, 0.5); }
+.level-c .btn-cleanup { 
+    background: linear-gradient(90deg, #F7D83C 0%, #E3F152 100%); 
+    border-color: rgba(255, 230, 108, 0.6); 
+}
+.level-c .btn-ignore { border-color: rgba(255, 230, 108, 0.6); }
+
+/* Level B (低) */
+.step-view#step-4.level-b { background: rgba(222, 250, 183, 0.8) !important; }
+.level-b .level-text, .level-b .level-desc, .level-b .level-emoji { color: #3A5F06; }
+.level-b .suggestion-box { background: rgba(254, 255, 238, 0.2); border-color: rgba(176, 246, 77, 0.6); }
+.level-b .highlight-tag { background: rgba(172, 255, 57, 0.5); }
+.level-b .btn-cleanup { 
+    background: linear-gradient(90deg, #AFEF52 0%, #52F7A5 100%); 
+    border-color: rgba(176, 246, 77, 0.6); 
+}
+.level-b .btn-ignore { border-color: rgba(176, 246, 77, 0.6); }
+
+/* Level A (极低) */
+.step-view#step-4.level-a { background: rgba(194, 246, 221, 0.8) !important; }
+.level-a .level-text, .level-a .level-desc, .level-a .level-emoji { color: #065F33; }
+.level-a .suggestion-box { background: rgba(238, 255, 247, 0.2); border-color: rgba(161, 239, 200, 0.6); }
+.level-a .highlight-tag { background: rgba(86, 255, 170, 0.5); }
+.level-a .btn-cleanup { 
+    background: linear-gradient(90deg, #52F7A5 0%, #4CEBDE 100%); 
+    border-color: rgba(161, 239, 200, 0.6); 
+}
+.level-a .btn-ignore { border-color: rgba(161, 239, 200, 0.6); }
+
+/* Frame 99 - Level Header (🤯 E级 极高碳负担) */
+#step-4 .level-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: auto;
+    height: auto;
+}
+
+.level-emoji {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22.4px;
+}
+
+.level-text,
+.level-desc {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19.6px;
+}
+
+/* Frame 64 - 主卡片 */
+#step-4 .result-card {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    gap: 20px;
+    padding: 20px 10px;
+    width: 360px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    box-shadow: none;
+}
+
+/* Frame 49 - 标题区域 */
+.card-title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 340px;
+}
+
+.card-main-title {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22.4px;
+    color: rgba(0, 0, 0, 0.85);
+    margin: 0;
+}
+
+/* Frame 38 - 元信息 (640MB 2/2 个文件已选) */
+.card-subtitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 12px;
+    gap: 7.6px;
+    width: 336.57px;
+}
+
+.card-subtitle span {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    line-height: 16.8px !important;
+    color: #4C4C4C !important;
+}
+
+/* Frame 55 / Frame 56 - 预览/建议区域容器 */
+.preview-section,
+.suggestion-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 340px;
+}
+
+/* Frame 46 / Frame 51 - 区域标题栏 */
+.section-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    align-self: stretch;
+    /* gap: 260.57px; */
+    height: 18px;
+}
+
+.section-label {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    text-align: left;
+    font-size: 12px;
+    line-height: 16.8px;
+    color: #4C4C4C;
+
+    white-space: nowrap;
+}
+
+/* Frame 45 - 查看详情 */
+
+.view-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4.34px;
+}
+
+.view-details span {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    color: rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    text-align: left;
+    order: 1;
+}
+
+.view-details .arrow-icon {
+    width: 4px;
+    height: 10px;
+    opacity: 0.25;
+    stroke-width: 0.6px;
+    stroke: var(--Labels-Tertiary, rgba(0, 0, 0, 0.75));
+    order: 2;
+}
+
+
+/* Frame 43 - 文件预览容器 */
+.preview-container {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    gap: 4px;
+    padding: 10px 10px 0px;
+    border-radius: 8px;
+    border: 0.6px solid rgba(203, 203, 203, 0.6);
+    background: rgba(245, 245, 245, 0.3);
+    overflow-x: hidden;
+    height: 140px;
+}
+
+/* Frame 41 - 文件列表 (横向排列) */
+.file-list-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    min-height: 90px;
+}
+
+/* 横向滚动条样式 */
+.file-list-row::-webkit-scrollbar {
+    height: 3.26px;
+    background: transparent;
+}
+
+.file-list-row::-webkit-scrollbar-thumb {
+    background: transparent; /* 初始透明 */
+    border-radius: 542.86px;
+    width: 150px;
+    height: 3.25px;
+}
+
+.preview-container:hover .file-list-row::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15); /* Hover 时显示颜色 */
+}
+
+/* Frame 69/70/71 - 文件卡片 */
+.file-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 10px 8px 6px;
+    border-radius: 8px;
+    min-height: 10px;
+    background: transparent;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.file-card:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Frame 68 - 卡片内容行 (Checkbox + 文件信息) */
+.file-card-row {
+    display: flex;
+    flex-direction: row;
+    min-height: 10px;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.custom-checkbox {
+    width: 10px;
+    height: 10px;
+    border-radius: 3.44px;
+    border: 0.6px solid rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.custom-checkbox.checked {
+    background: #0D6FFF;
+    border-color: #0D6FFF;
+}
+
+.custom-checkbox.checked::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 5.8px;
+    height: 5.6px;
+    transform: translate(-50%, -50%);
+    background: url('image/checkmark.svg') no-repeat center;
+    background-size: contain;
+}
+
+/* Frame 76 - 文件内容 (图标 + 信息) */
+.file-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Frame 98 - 图标容器 */
+.file-card-icon-wrapper {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    padding: 0px 4px 0px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    aspect-ratio: 1/1;
+}
+
+.file-card-icon {
+    width: 36px;
+    flex-shrink: 0;
+    align-self: stretch;
+    aspect-ratio: 3/4;
+    /* object-fit: contain; */
+}
+
+.file-icon-emoji {
+    font-size: 24px;
+    line-height: 24px;
+}
+
+/* Frame 40 - 文件信息 */
+.file-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    position: relative; /* 确保悬浮展示定位正确 */
+}
+
+.file-card-name {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16.8px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    position: relative;
+}
+
+/* Hover 时通过伪元素横向悬浮展示全名，不脱离文档流，解决抖动问题 */
+.file-card-name:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 4px;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    width: max-content;
+    color: rgba(0, 0, 0, 0.85);
+    border: 0.5px solid #E0E0E0;
+    pointer-events: none;
+}
+
+/* 移除原有的 hover 逻辑以防冲突 */
+.file-card-name:hover {
+    overflow: hidden;
+}
+
+/* Frame 77 - 元数据 */
+.file-card-meta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.file-card-meta span {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    color: #808080;
+}
+
+.meta-sep {
+    width: 0px;
+    height: 5px;
+    opacity: 1;
+}
+
+.file-card-path {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    line-height: 12.6px;
+    text-align: center;
+    color: #808080;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    position: relative;
+}
+
+/* Hover 时通过伪元素横向悬浮展示完整路径，不脱离文档流，解决抖动问题 */
+.file-card-path:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 4px;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    width: max-content;
+    color: #808080;
+    border: 0.5px solid #E0E0E0;
+    pointer-events: none;
+    font-size: 10px;
+}
+
+/* 移除原有的 hover 逻辑以防冲突 */
+.file-card-path:hover {
+    overflow: hidden;
+}
+
+
+/* Frame 54 - 清理建议框 */
+.suggestion-box {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    gap: 10px;
+    padding: 16px 10px;
+    height: 122px;
+    border-radius: 8px;
+    border: 0.6px solid;
+}
+
+/* Frame 81/82 - 建议项 */
+.decarbon-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+
+.suggestion-item {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.suggestion-icon {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px !important;
+    line-height: 180%;
+    color: #4C4C4C;
+}
+
+.suggestion-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 对应 index.html 中的 class="suggestion-title" */
+.suggestion-title {
+    font-family: "PingFang SC", sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 11px !important;
+    line-height: 180%;
+    color: #4C4C4C !important;
+    margin: 0;
+}
+
+/* 对应 index.html 中的 class="suggestion-text" */
+.suggestion-text {
+    font-family: "PingFang SC", sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 11px !important;
+    line-height: 180%;
+    color: #4C4C4C !important;
+    margin: 0;
+    /* 只保留一行文字，超出省略 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px; /* 限制宽度以触发省略 */
+}
+
+
+/* Frame 83 - 脱碳贡献 */
+.decarbon-contribution {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1px;
+    white-space: nowrap;   /* 整行不换 */
+    flex-wrap: nowrap;     /* 明确禁止换行 */
+}
+
+/* Frame 84 - 高亮标签 */
+.highlight-tag {
+    display: flex;
+    height: 13.03px;
+    padding: 0px 2.17px;
+    justify-content: center;
+    align-items: center;
+    gap: 4.34px;
+    border-radius: 2px;
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 15.4px;
+    color: #4C4C4C;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Frame 92 - 操作按钮 */
+.card-actions-new {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    width: 340px;
+    height: 30px;
+}
+
+/* Button - 清理这组文件 */
+.btn-cleanup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 10px;
+    width: 210px;
+    height: 30px;
+    border-radius: 120px;
+    border: 0.6px solid;
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16.8px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-cleanup:hover {
+    opacity: 0.9;
+}
+
+/* Button Secondary - 忽略 */
+.btn-ignore {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 10px;
+    width: 120px;
+    height: 30px;
+    border-radius: 120px;
+    border: 0.6px solid;
+    background: rgba(255, 255, 255, 0.2);
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16.8px;
+    color: #808080;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-ignore:hover {
+    background: rgba(255, 255, 255, 0.30);
+}
+
+/* 返回首页按钮 */
+.back-home-btn {
+    display: none;
+}
+
+.back-home-btn:not(.hidden) {
+    display: flex;
+    margin-top: 10px;
+} 

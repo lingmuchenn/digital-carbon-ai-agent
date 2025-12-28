@@ -1,0 +1,140 @@
+/* ========================================
+   Figma Step 3 精确还原 - 进度 & 实时日志界面（仅尺寸/布局）
+   设计稿节点: 1521:12308 (Frame 2610450)
+   说明：不改动 JS 的日志文字内容与滚动逻辑，仅覆盖样式尺寸
+   ======================================== */
+
+/* Step 3 根容器（Frame 2610450） */
+#step-3.step-view {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 340px;
+    background: transparent;
+}
+
+/* 进度卡片（Frame 2610440） */
+#step-3 #progress-wrapper.progress-wrapper {
+    border-radius: 8px;
+    padding: 20px;
+    height: 82px;
+    background: rgba(245, 245, 245, 0.3);
+    border: 0.6px solid rgba(203, 203, 203, 0.6);
+}
+
+/* 顶部一行：分析进度 / 百分比（Frame 2610446） */
+#step-3 #progress-wrapper .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#step-3 #progress-wrapper .progress-label {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22.4px;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+#step-3 #progress-wrapper #progress-time.progress-time {
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16.8px;
+    color: #64C998;
+}
+
+/* 进度条（对齐 Figma：宽 300，高 6） */
+#step-3 #progress-wrapper .progress-bar {
+    width: 300px;
+    height: 6px;
+    border-radius: 999px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin: 0 auto; /* 居中 */
+}
+
+#step-3 #progress-wrapper #progress-fill.progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: #64C998;
+}
+
+/* 进度提示文字：按需求移除（不影响 JS 更新逻辑） */
+#step-3 #progress-wrapper #progress-hint.progress-hint {
+    display: none !important;
+}
+
+/* 进度卡片：仅当鼠标 hover 在日志滚动区域时显示（由 JS 给 #step-3 加类控制） */
+#step-3 #progress-wrapper.progress-wrapper {
+    transition: opacity 0.15s ease, max-height 0.15s ease, padding 0.15s ease, border-width 0.15s ease, margin 0.15s ease;
+}
+
+/* 默认隐藏（注意：仅在 JS 已把 progress-wrapper 设为 display:block 的情况下生效） */
+#step-3:not(.show-progress-on-hover) #progress-wrapper.progress-wrapper {
+    opacity: 0;
+    max-height: 0;
+    height: 0;
+    padding: 0;
+    border-width: 0;
+    margin: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* hover 时显示 */
+#step-3.show-progress-on-hover #progress-wrapper.progress-wrapper {
+    opacity: 1;
+    max-height: 120px; /* 够容纳 82px 高度 */
+    height: 82px;
+    padding: 20px;
+    border-width: 0.6px;
+    pointer-events: auto;
+}
+
+/* 日志列表容器：高度 365（含滚动条） */
+#step-3 #log-container.log-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Figma Frame 2610448 gap */
+    height: 365px;
+    overflow-y: auto;
+}
+
+/* 单条日志卡片（Frame 2610441~2610449） */
+#step-3 #log-container .log-line {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    gap: 20px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: rgba(245, 245, 245, 0.3);
+    border: 0.6px solid rgba(203, 203, 203, 0.6);
+    font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16.8px;
+    color: #4C4C4C;
+}
+
+/* 滚动条（Figma：宽 6，thumb rgba(0,0,0,0.15)） */
+#step-3 #log-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+#step-3 #log-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#step-3 #log-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    width: 3px;
+    border-radius: 542.86px;
+}
+
+
