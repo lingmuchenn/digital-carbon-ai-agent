@@ -1,0 +1,29 @@
+# 打包工具（必须）
+pyinstaller>=6.0.0
+
+# 核心依赖
+flask>=2.3.0
+flask-cors>=4.0.0
+pywebview>=4.0.0
+
+# AI 模型
+openai>=1.0.0
+dashscope>=1.14.0
+
+# 文档处理
+python-docx>=0.8.11
+PyPDF2>=3.0.0
+pypdfium2>=4.0.0
+
+# 图像处理
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# 进度显示
+tqdm>=4.65.0
+
+# 额外依赖
+altgraph
+packaging
+send2trash>=1.8.2
+
