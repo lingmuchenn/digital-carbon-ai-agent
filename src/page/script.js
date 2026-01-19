@@ -107,12 +107,6 @@ function selectModeAndGoStep2(mode) {
         'history': '历史文件'
     };
     
-    // 过程文件和历史文件暂时不接入后端功能
-    if (mode === 'process' || mode === 'history') {
-        alert(`${labels[mode]}功能即将上线，敬请期待！`);
-        return;
-    }
-    
     // 跳转到新的文件夹选择界面（Step 2）
     showStep(2);
     
@@ -317,7 +311,13 @@ async function startBackendAnalysis(folderPath) {
                 if (analysisResults.length === 0) {
                     addLogLine('✅ 分析完成，未发现需要处理的文件');
                     setTimeout(() => {
-                        alert('未发现重复或相似文件');
+                        const emptyMsgMap = {
+                            similar: '未发现相似文件',
+                            duplicate: '未发现重复文件',
+                            history: '未发现历史文件',
+                            process: '未发现需要处理的过程文件'
+                        };
+                        alert(emptyMsgMap[selectedMode] || '未发现需要处理的文件');
                         resetProgress();
                         showStep(1);
                     }, 1000);
@@ -372,6 +372,30 @@ function formatResults(data, mode) {
     
     return data.map(item => {
         if (!item) return null;
+
+        // --- 过程文件：后端按“组卡片”返回，直接借用 duplicate 渲染 ---
+        if (mode === 'process' || item.type === 'process') {
+            return {
+                type: 'duplicate',
+                files: item.files || [],
+                label: item.label || '过程文件',
+                fileSize: item.file_size_mb || 0,
+                analysis: item.analysis,
+                needCleanup: item.need_cleanup
+            };
+        }
+
+        // --- 历史文件：后端按“组卡片”返回，直接借用 duplicate 渲染 ---
+        if (mode === 'history' || item.type === 'history') {
+            return {
+                type: 'duplicate',
+                files: item.files || [],
+                label: '历史文件',
+                fileSize: item.file_size_mb || 0,
+                analysis: item.analysis,
+                needCleanup: item.need_cleanup
+            };
+        }
 
         // --- 核心原则：不修改重复文件原有的判断逻辑 ---
         if (mode === 'duplicate' || item.type === 'duplicate' || (!item.type && item.files)) {
@@ -836,15 +860,27 @@ function toggleDetails() {
                 <div class="details-grid">
                     <div class="details-item">
                         <span class="label">识别维度:</span>
-                        <span class="value">${selectedMode === 'similar' ? '视觉/结构相似度' : '二进制数据一致性'}</span>
+                        <span class="value">${
+                            selectedMode === 'history'
+                                ? '元信息规则（时间 + 层级）'
+                                : (selectedMode === 'process'
+                                    ? '规则引擎（文件类型/命名模式/元信息）'
+                                    : (selectedMode === 'similar' ? '视觉/结构相似度' : '二进制数据一致性'))
+                        }</span>
                     </div>
                     <div class="details-item">
                         <span class="label">置信度:</span>
-                        <span class="value highlight">${similarity}</span>
+                        <span class="value highlight">${(selectedMode === 'history' || selectedMode === 'process') ? '-' : similarity}</span>
                     </div>
                     <div class="details-item">
                         <span class="label">建议方案:</span>
-                        <span class="value">AI 建议${result.type === 'similar' ? '保留清晰度更高或体积更小的版本' : '清理所有副本，仅保留一份原始文件'}</span>
+                        <span class="value">${
+                            selectedMode === 'history'
+                                ? '建议归档/删除长期未修改文件（可按大小/重要性优先级处理）'
+                                : (selectedMode === 'process'
+                                    ? '建议删除安装包/压缩包/导出件等“过程产物”（确认不再需要后再清理）'
+                                    : `AI 建议${result.type === 'similar' ? '保留清晰度更高或体积更小的版本' : '清理所有副本，仅保留一份原始文件'}`)
+                        }</span>
                     </div>
                 </div>
             </div>
