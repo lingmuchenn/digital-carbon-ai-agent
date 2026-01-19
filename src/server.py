@@ -18,6 +18,8 @@ except Exception:
 sys.path.append(str(Path(__file__).parent))
 import find_similar_files
 import find_duplicate_by_hash
+import find_history_files
+import find_process_files
 
 app = Flask(__name__, static_folder='page')
 
@@ -165,6 +167,12 @@ def analyze():
                 per_file_time = float(cfg.get('ESTIMATE_PER_FILE_SIMILAR', 6.0))
             elif mode == 'image':
                 per_file_time = float(cfg.get('ESTIMATE_PER_FILE_IMAGE', 5.0))
+            elif mode == 'history':
+                # 历史文件：仅元信息判定 + 层级剪枝，通常非常快
+                per_file_time = float(cfg.get('ESTIMATE_PER_FILE_HISTORY', 0.03))
+            elif mode == 'process':
+                # 过程文件：主要基于文件名/元信息规则，通常很快
+                per_file_time = float(cfg.get('ESTIMATE_PER_FILE_PROCESS', 0.06))
                 
             estimated_seconds = int(total_files * per_file_time)
             # 添加基础时间（初始化、扫描、模型 warmup 等）
@@ -182,6 +190,10 @@ def analyze():
             results = []
             if mode == 'duplicate':
                 results = find_duplicate_by_hash.process_directory(path_obj, log_callback=log_callback)
+            elif mode == 'history':
+                results = find_history_files.process_directory(path_obj, log_callback=log_callback)
+            elif mode == 'process':
+                results = find_process_files.process_directory(path_obj, log_callback=log_callback)
             elif mode == 'image': # New mode for images
                 # Directly call the image logic only (reusing find_similar_files with filter?)
                 # Actually find_similar_files.process_directory now does BOTH if images exist.
