@@ -156,11 +156,6 @@ def process_directory(target_dir, log_callback=None):
         total_waste = sum(g['file_size_mb'] * (len(g['files']) - 1) for g in results)
         log(f"📊 预计可释放空间: {total_waste:.2f} MB")
         
-        # 生成 Markdown 报告 (可选)
-        # output_path = os.path.join(folder_path, "duplicate_report.md")
-        # export_markdown_view(results, output_path)
-        # log(f"✅ 报告已保存: {output_path}")
-        
         return results
         
     except Exception as e:
